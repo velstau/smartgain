@@ -1,0 +1,44 @@
+{
+  "manifest_version": 3,
+  "name": "SmartGain",
+  "version": "1.3.0",
+  "description": "動画プレイヤーの音量を自動調整する拡張機能。マウスホイール操作によるコントロールも可能。",
+  "permissions": [
+    "storage"
+  ],
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": true
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "run_at": "document_start",
+      "all_frames": true
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "inject.js"
+      ],
+      "matches": [
+        "<all_urls>"
+      ]
+    }
+  ],
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAu/eaoTgeF9pSjMJ2PL62E5zM7GCkpPFY+rdqo8P5WzxLXm2Z7XCPKQyQH6uEl2GQzo8yyf0wcYBUdbNCSidnBy09BB9S6ReiwrOh+yEnYq+cImrO7Da3CrY7HS2dF27RFTNksDbn7QqdSalwGiscIhl0CDs2hFuCbwW9mFPb9nk41UvHrurpsT0+TKurytSa47mRNkE2F0nqZK5krrJPzij9U4VP91jYm/XeQnCE/LIdr9yt6eJb5YagwtqxJcvT+bK3JsTPMnJpwxIp04xYNXAr3HohhLo9C+2Ei4BHJQj+psK+JpVgpkG1Afqm3A9m4vWnTSdWXQEYrXZZWcKTjQIDAQAB"
+}

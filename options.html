@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <title>SmartGain - 設定</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="options.css">
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <h1>SmartGain 設定</h1>
+    </header>
+
+    <main>
+      <!-- 全機能の有効/無効トグル -->
+      <div class="setting-item">
+        <div class="setting-label">
+          <label for="featureEnabled" class="setting-title">機能を有効にする (Master Switch)</label>
+        </div>
+        <label class="toggle-switch">
+          <input type="checkbox" id="featureEnabled">
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <!-- サイト別有効化設定 -->
+      <div class="setting-group"
+        style="margin-top: 10px; margin-bottom: 20px; padding: 10px; background-color: rgba(255,255,255,0.05); border-radius: 8px;">
+        <span class="setting-title" style="font-size: 0.9em; display: block; margin-bottom: 10px;">サイト別設定</span>
+
+        <div class="setting-item" style="border-bottom: none; padding: 5px 0;">
+          <label style="display: flex; align-items: center; cursor: pointer;">
+            <input type="checkbox" id="enableYoutube" style="margin-right: 10px;">
+            <span>YouTube で有効にする</span>
+          </label>
+        </div>
+        <div class="setting-item" style="border-bottom: none; padding: 5px 0;">
+          <label style="display: flex; align-items: center; cursor: pointer;">
+            <input type="checkbox" id="enableTwitch" style="margin-right: 10px;">
+            <span>Twitch で有効にする</span>
+          </label>
+        </div>
+        <div class="setting-item" style="border-bottom: none; padding: 10px 0; display: block;">
+          <label for="customSites" style="display: block; margin-bottom: 5px; font-weight: bold;">カスタムサイト
+            (1行に1ドメイン)</label>
+          <span style="font-size: 0.8em; color: #aaa; display: block; margin-bottom: 5px;">例: gch.jp,
+            nicovideo.jp</span>
+          <textarea id="customSites" rows="5"
+            style="width: 100%; box-sizing: border-box; background: rgba(0,0,0,0.2); border: 1px solid #555; color: #fff; border-radius: 4px; padding: 8px;"></textarea>
+        </div>
+      </div>
+
+      <!-- スクロール操作の有効/無効トグル -->
+      <div class="setting-item">
+        <div class="setting-label">
+          <label for="scrollControlEnabled" class="setting-title">マウススクロール操作</label>
+          <span class="setting-description">右クリック + 上スクロールでボリュームアップ<br>右クリック + 下スクロールでボリュームダウン</span>
+        </div>
+        <label class="toggle-switch">
+          <input type="checkbox" id="scrollControlEnabled">
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <!-- ボリュームOSD表示の有効/無効トグル -->
+      <div class="setting-item">
+        <div class="setting-label">
+          <label for="osdEnabled" class="setting-title">ボリューム表示 (OSD)</label>
+          <span class="setting-description">プレイヤー上にボリューム値を表示する</span>
+        </div>
+        <label class="toggle-switch">
+          <input type="checkbox" id="osdEnabled">
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <!-- OSD表示位置選択 -->
+      <div class="setting-item">
+        <div class="setting-label">
+          <label for="osdPosition" class="setting-title">表示位置</label>
+        </div>
+        <select id="osdPosition" class="select-box">
+          <option value="top-left">左上</option>
+          <option value="top-right">右上</option>
+          <option value="bottom-left">左下</option>
+          <option value="bottom-right">右下</option>
+        </select>
+      </div>
+
+      <!-- デフォルト音量入力 -->
+      <div class="setting-item">
+        <div class="setting-label">
+          <label for="defaultVolume" class="setting-title">デフォルト音量</label>
+          <span class="setting-description">動画読み込み時に適用される音量 (0-100)</span>
+        </div>
+        <input type="number" id="defaultVolume" class="input-number" min="0" max="100" step="0.1">
+      </div>
+
+      <!-- ステップサイズ入力 -->
+      <div class="setting-item">
+        <div class="setting-label">
+          <label for="stepSize" class="setting-title">ホイール変化量 (Step)</label>
+          <span class="setting-description">ホイール1回あたりの変化量 (例: 0.1 - 10)</span>
+        </div>
+        <input type="number" id="stepSize" class="input-number" min="0.1" max="50" step="0.1">
+      </div>
+
+      <!-- 保存ボタンとステータス表示 -->
+      <div class="setting-group">
+        <span class="setting-title">実験的機能</span>
+        <div class="setting-item">
+          <div class="setting-label">
+            <span class="setting-title">自動音量調整 (Auto-Gain)</span>
+            <span class="setting-description">動画のラウドネスを測定し、どの動画も同じ聞こえ方になるよう自動で補正します。手動の音量はその上に掛かる「マスター音量」として使えます。</span>
+            <span class="setting-description text-danger">※音声を Web Audio に通せないサイト（クロスオリジン配信など）では従来方式になり、手動の音量調整は上書きされます。</span>
+          </div>
+          <label class="toggle-switch">
+            <input type="checkbox" id="autoGainEnabled">
+            <span class="slider"></span>
+          </label>
+        </div>
+
+        <div class="setting-item">
+          <div class="setting-label">
+            <span class="setting-title">目標ラウドネス (LUFS 目安)</span>
+            <span class="setting-description">補正後の基準の大きさ（-40〜-6）。大きい値ほど大きな音になります。Alt + 右クリック + ホイールで 1dB ずつ変更できます。</span>
+            <span class="setting-recommend">推奨：-16（初期値）。YouTube の多くの動画はこの付近の大きさなので、ほとんど補正されません。</span>
+          </div>
+          <input type="number" id="autoGainTargetLufs" class="input-number" min="-40" max="-6" step="0.5">
+        </div>
+
+        <div class="setting-item">
+          <div class="setting-label">
+            <span class="setting-title">最大ブースト (dB)</span>
+            <span class="setting-description">音の小さい動画を持ち上げる上限（0〜24）。大きくするほど小さい動画も揃いますが、ノイズも持ち上がります。</span>
+            <span class="setting-recommend">推奨：Twitch もよく見るなら 15、YouTube が中心なら 12（初期値）。Twitch の配信は目標より 5〜15dB 以上小さいことが多く、上限に届くと補正量が「+最大値」のまま動かなくなります。</span>
+          </div>
+          <input type="number" id="autoGainMaxBoost" class="input-number" min="0" max="24" step="1">
+        </div>
+
+        <div class="setting-item">
+          <div class="setting-label">
+            <span class="setting-title">ダイナミクス圧縮</span>
+            <span class="setting-description">動画内の音量差（小声と叫び声、会話と BGM など）を縮めます。圧縮で削れた分は自動で戻すので、強さを変えても全体の大きさは変わりません。</span>
+            <span class="setting-recommend">推奨：弱（初期値）。叫び声や効果音との差が気になる配信では強。</span>
+          </div>
+          <select id="autoGainCompression" class="select-box">
+            <option value="off">オフ</option>
+            <option value="light">弱</option>
+            <option value="strong">強</option>
+          </select>
+        </div>
+
+        <div class="setting-item">
+          <div class="setting-label">
+            <span class="setting-title">調整速度</span>
+            <span class="setting-description">動画内の音量変化に追従する速さ（速い ≈ 3秒 / 普通 ≈ 8秒 / ゆっくり ≈ 20秒の平均）。</span>
+            <span class="setting-recommend">推奨：普通（初期値）。</span>
+          </div>
+          <select id="autoGainSpeed" class="select-box">
+            <option value="fast">速い</option>
+            <option value="normal">普通</option>
+            <option value="slow">ゆっくり</option>
+          </select>
+        </div>
+
+        <div class="setting-item">
+          <div class="setting-label">
+            <span class="setting-title">デバッグ情報を表示</span>
+            <span class="setting-description">動作状況（RMS、Targetなど）をOSDに表示します。</span>
+          </div>
+          <label class="toggle-switch">
+            <input type="checkbox" id="showDebugInfo">
+            <span class="slider"></span>
+          </label>
+        </div>
+
+        <div class="setting-item">
+          <div class="setting-label">
+            <span class="setting-title">オーディオビジュアライザー</span>
+            <span class="setting-description">動画上にリアルタイムで音声波形を表示します。</span>
+          </div>
+          <label class="toggle-switch">
+            <input type="checkbox" id="visualizerEnabled">
+            <span class="slider"></span>
+          </label>
+        </div>
+
+        <div class="setting-item">
+          <div class="setting-label">
+            <span class="setting-title">ビジュアライザーの種類</span>
+          </div>
+          <select id="visualizerType" class="select-box">
+            <option value="overlay">オーバーレイ (画面下部)</option>
+            <option value="osd">OSD統合 (背景)</option>
+            <option value="osd_bottom">OSD統合 (イコライザー)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="setting-group">
+        <span class="setting-title">デバッグログ</span>
+        <span class="setting-description">Auto-Gain 動作中の動画ごとの集計（最新 50 件）。「コピー」で貼り付け用のテキストになります。</span>
+        <div class="debug-log-actions">
+          <button id="copyDebugLog" class="btn-primary">コピー</button>
+          <button id="clearDebugLog" class="btn-secondary">クリア</button>
+        </div>
+        <pre id="debugLog" class="debug-log">（記録なし）</pre>
+      </div>
+
+      <div class="footer-actions">
+        <button id="save" class="btn-primary">保存</button>
+        <span id="status">設定を保存しました。</span>
+      </div>
+    </main>
+  </div>
+
+  <script src="options.js"></script>
+</body>
+
+</html>

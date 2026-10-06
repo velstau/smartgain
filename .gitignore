@@ -1,0 +1,10 @@
+# 配布用 zip（scripts/release.py の出力。vel.works に置いて配布する）
+dist/
+
+# 拡張の秘密鍵（manifest の key は公開鍵。秘密鍵はリポジトリの外に置く）
+*.pem
+
+# 検証スクリプトの出力
+test/*.png
+site_sim.png
+__pycache__/

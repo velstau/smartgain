@@ -34,7 +34,8 @@ def fail(msg):
 def runtime_files(ext_dir):
     for path in sorted(ext_dir.rglob('*')):
         rel = path.relative_to(ext_dir)
-        if path.is_dir() or rel.parts[0] in EXCLUDE_DIRS or path.suffix in EXCLUDE_SUFFIXES or path.name.startswith('.'):
+        # .git などの隠しフォルダの中身も除く（名前が . で始まる部分がパスのどこかにあれば対象外）
+        if path.is_dir() or rel.parts[0] in EXCLUDE_DIRS or path.suffix in EXCLUDE_SUFFIXES or any(part.startswith('.') for part in rel.parts):
             continue
         yield path, rel
 

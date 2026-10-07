@@ -43,6 +43,10 @@ URL='https://www.youtube.com/watch?v=dQw4w9WgXcQ' python3 site_sim.py '{"autoGai
 - YouTube はヘッドレスだと、拡張の有無に関係なく約 40 秒で「Something went wrong」になり再生が止まる（ボット判定）。それより長い挙動は実機で確かめる
 - Twitch の動画は `srcObject = MediaSourceHandle`（Worker 内の MSE）で再生され、`src` は空になる
 
+## osd_frames.py
+
+動画のない iframe（YouTube のライブチャットなど）に OSD が出ないことを確かめる。動画のある最上位フレームと動画のない iframe からなるローカルのページで content.js を全フレームに注入し、各フレームの OSD の有無を出力する。iframe の行が `null` なら正しい。引数はない（`python3 osd_frames.py`）。
+
 ## measure_levels.js
 
 同じ動画の音量を captureStream と MediaElementSource の両方で測り、dBFS で比べる。Auto-Gain の測定値がおかしいとき、測り方の問題か動画そのものが小さいのかを切り分けるのに使う。使い方はファイル冒頭のコメントにある。

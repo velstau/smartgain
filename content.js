@@ -595,6 +595,14 @@ class VolumeController {
             }
         }
 
+        // 動画のないフレーム (YouTube のライブチャットの iframe など) では出さない。
+        // content script は全フレームで動き、inject.js の状態報告 (Debug) はどのフレームでも届くので、
+        // ここで止めないとフレームの右上に OSD が出てしまう
+        if (!playerContainer) {
+            if (osd) osd.style.display = 'none';
+            return;
+        }
+
         if (!osd) {
             osd = document.createElement('div');
             osd.id = 'yt-vol-control-display';
@@ -602,17 +610,9 @@ class VolumeController {
         }
 
         // 親要素の確認と再配置
-        if (playerContainer) {
-            if (osd.parentElement !== playerContainer) {
-                osd.style.position = 'absolute';
-                playerContainer.appendChild(osd);
-            }
-        } else {
-            // どうしても見つからない場合のみbodyに配置 (フォールバック)
-            if (osd.parentElement !== document.body) {
-                osd.style.position = 'fixed';
-                document.body.appendChild(osd);
-            }
+        if (osd.parentElement !== playerContainer) {
+            osd.style.position = 'absolute';
+            playerContainer.appendChild(osd);
         }
 
         osd.style.display = 'block';
